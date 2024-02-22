@@ -1336,7 +1336,7 @@ call_00_0679:
     ret                                                ;; 00:0689 $c9
 
 call_00_068a:
-    ld   A, [wC7DF]                                    ;; 00:068a $fa $df $c7
+    ld   A, [wShadowMemoryHigh]                        ;; 00:068a $fa $df $c7
     rst  executeOAM_DMA                                ;; 00:068d $df
     ret                                                ;; 00:068e $c9
 
@@ -1356,7 +1356,7 @@ call_00_068f:
     jr   C, .jr_00_06ab                                ;; 00:06a2 $38 $07
     rrca                                               ;; 00:06a4 $0f
     jr   C, .jr_00_06ab                                ;; 00:06a5 $38 $04
-    ld   A, [wC7DF]                                    ;; 00:06a7 $fa $df $c7
+    ld   A, [wShadowMemoryHigh]                        ;; 00:06a7 $fa $df $c7
     ld   C, A                                          ;; 00:06aa $4f
 .jr_00_06ab:
     ld   A, C                                          ;; 00:06ab $79
@@ -1377,7 +1377,7 @@ call_00_06b0:
     swap A                                             ;; 00:06bd $cb $37
     or   A, H                                          ;; 00:06bf $b4
     ld   H, A                                          ;; 00:06c0 $67
-    ld   [wC7DF], A                                    ;; 00:06c1 $ea $df $c7
+    ld   [wShadowMemoryHigh], A                        ;; 00:06c1 $ea $df $c7
     ld   A, [wC7DE]                                    ;; 00:06c4 $fa $de $c7
     and  A, A                                          ;; 00:06c7 $a7
     jr   Z, .jr_00_06f0                                ;; 00:06c8 $28 $26
@@ -1409,7 +1409,7 @@ call_00_06b0:
     dec  B                                             ;; 00:06e8 $05
     jr   NZ, .jr_00_06d8                               ;; 00:06e9 $20 $ed
     ld   A, $cc                                        ;; 00:06eb $3e $cc
-    ld   [wC7DF], A                                    ;; 00:06ed $ea $df $c7
+    ld   [wShadowMemoryHigh], A                        ;; 00:06ed $ea $df $c7
 .jr_00_06f0:
     pop  HL                                            ;; 00:06f0 $e1
     pop  DE                                            ;; 00:06f1 $d1
@@ -4662,11 +4662,11 @@ call_00_1a97:
     ldh  [hFFC4], A                                    ;; 00:1abd $e0 $c4
     ld   HL, $1928                                     ;; 00:1abf $21 $28 $19
 .jr_00_1ac2:
-    ldh  A, [hFFC2]                                    ;; 00:1ac2 $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:1ac2 $f0 $c2
     add  A, [HL]                                       ;; 00:1ac4 $86
     ldh  [rSCX], A                                     ;; 00:1ac5 $e0 $43
     dec  L                                             ;; 00:1ac7 $2d
-    ldh  A, [hFFC1]                                    ;; 00:1ac8 $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:1ac8 $f0 $c1
     add  A, [HL]                                       ;; 00:1aca $86
     ldh  [rSCY], A                                     ;; 00:1acb $e0 $42
     ld   A, [wC464]                                    ;; 00:1acd $fa $64 $c4
@@ -5618,9 +5618,9 @@ call_00_20c8:
     inc  HL                                            ;; 00:20cd $23
     ld   [HL], $98                                     ;; 00:20ce $36 $98
     xor  A, A                                          ;; 00:20d0 $af
-    ldh  [hFFC1], A                                    ;; 00:20d1 $e0 $c1
+    ldh  [hSCY], A                                     ;; 00:20d1 $e0 $c1
     ld   A, $08                                        ;; 00:20d3 $3e $08
-    ldh  [hFFC2], A                                    ;; 00:20d5 $e0 $c2
+    ldh  [hSCX], A                                     ;; 00:20d5 $e0 $c2
     call call_00_20db                                  ;; 00:20d7 $cd $db $20
     ret                                                ;; 00:20da $c9
 
@@ -7503,10 +7503,10 @@ call_00_2bee:
     ldh  [rWY], A                                      ;; 00:2c12 $e0 $4a
     ld   A, $a7                                        ;; 00:2c14 $3e $a7
     ldh  [rWX], A                                      ;; 00:2c16 $e0 $4b
-    ldh  A, [hFFC1]                                    ;; 00:2c18 $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:2c18 $f0 $c1
     ldh  [rSCY], A                                     ;; 00:2c1a $e0 $42
     ld   [wC47D], A                                    ;; 00:2c1c $ea $7d $c4
-    ldh  A, [hFFC2]                                    ;; 00:2c1f $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:2c1f $f0 $c2
     ldh  [rSCX], A                                     ;; 00:2c21 $e0 $43
     ld   [wC47A], A                                    ;; 00:2c23 $ea $7a $c4
     ret                                                ;; 00:2c26 $c9
@@ -7746,9 +7746,9 @@ call_00_2d8f:
     ret                                                ;; 00:2ddb $c9
 
 call_00_2ddc:
-    ldh  A, [hFFC1]                                    ;; 00:2ddc $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:2ddc $f0 $c1
     ldh  [rSCY], A                                     ;; 00:2dde $e0 $42
-    ldh  A, [hFFC2]                                    ;; 00:2de0 $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:2de0 $f0 $c2
     ldh  [rSCX], A                                     ;; 00:2de2 $e0 $43
     ld   A, [wC305]                                    ;; 00:2de4 $fa $05 $c3
     ld   [wC462], A                                    ;; 00:2de7 $ea $62 $c4
@@ -7857,10 +7857,10 @@ call_00_2ddc:
     ld   H, A                                          ;; 00:2e89 $67
     dec  C                                             ;; 00:2e8a $0d
     jr   NZ, .jr_00_2e64                               ;; 00:2e8b $20 $d7
-    ldh  A, [hFFC2]                                    ;; 00:2e8d $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:2e8d $f0 $c2
     ldh  [rSCX], A                                     ;; 00:2e8f $e0 $43
     ld   [wC47A], A                                    ;; 00:2e91 $ea $7a $c4
-    ldh  A, [hFFC1]                                    ;; 00:2e94 $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:2e94 $f0 $c1
     ldh  [rSCY], A                                     ;; 00:2e96 $e0 $42
     ld   [wC47D], A                                    ;; 00:2e98 $ea $7d $c4
     ret                                                ;; 00:2e9b $c9
@@ -9115,14 +9115,14 @@ call_00_344b:
     jr   Z, .jr_00_3603                                ;; 00:35e8 $28 $19
     dec  A                                             ;; 00:35ea $3d
     jr   Z, .jr_00_35f7                                ;; 00:35eb $28 $0a
-    ldh  A, [hFFC2]                                    ;; 00:35ed $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:35ed $f0 $c2
     add  A, $08                                        ;; 00:35ef $c6 $08
     cpl                                                ;; 00:35f1 $2f
     inc  A                                             ;; 00:35f2 $3c
     and  A, $0f                                        ;; 00:35f3 $e6 $0f
     jr   .jr_00_3615                                   ;; 00:35f5 $18 $1e
 .jr_00_35f7:
-    ldh  A, [hFFC2]                                    ;; 00:35f7 $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:35f7 $f0 $c2
     add  A, $08                                        ;; 00:35f9 $c6 $08
     cpl                                                ;; 00:35fb $2f
     inc  A                                             ;; 00:35fc $3c
@@ -9130,14 +9130,14 @@ call_00_344b:
     or   A, $f0                                        ;; 00:35ff $f6 $f0
     jr   .jr_00_3615                                   ;; 00:3601 $18 $12
 .jr_00_3603:
-    ldh  A, [hFFC1]                                    ;; 00:3603 $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:3603 $f0 $c1
     cpl                                                ;; 00:3605 $2f
     inc  A                                             ;; 00:3606 $3c
     and  A, $0f                                        ;; 00:3607 $e6 $0f
     or   A, $f0                                        ;; 00:3609 $f6 $f0
     jr   .jr_00_3616                                   ;; 00:360b $18 $09
 .jr_00_360d:
-    ldh  A, [hFFC1]                                    ;; 00:360d $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:360d $f0 $c1
     cpl                                                ;; 00:360f $2f
     inc  A                                             ;; 00:3610 $3c
     and  A, $0f                                        ;; 00:3611 $e6 $0f
@@ -9670,9 +9670,9 @@ jp_00_388c:
     ld   A, [wC43D]                                    ;; 00:38f8 $fa $3d $c4
     or   A, A                                          ;; 00:38fb $b7
     jr   NZ, .jr_00_38db                               ;; 00:38fc $20 $dd
-    ldh  A, [hFFC1]                                    ;; 00:38fe $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:38fe $f0 $c1
     ldh  [rSCY], A                                     ;; 00:3900 $e0 $42
-    ldh  A, [hFFC2]                                    ;; 00:3902 $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:3902 $f0 $c2
     ldh  [rSCX], A                                     ;; 00:3904 $e0 $43
     ld   A, [wC440]                                    ;; 00:3906 $fa $40 $c4
     or   A, A                                          ;; 00:3909 $b7
@@ -10173,7 +10173,7 @@ jp_00_3cb4:
     ld_long_store hFFC0, A                             ;; 00:3cb5 $ea $c0 $ff
     ld   A, $37                                        ;; 00:3cb8 $3e $37
     ld   [wC479], A                                    ;; 00:3cba $ea $79 $c4
-    ldh  A, [hFFC2]                                    ;; 00:3cbd $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:3cbd $f0 $c2
     ldh  [rSCX], A                                     ;; 00:3cbf $e0 $43
     ld   [wC47A], A                                    ;; 00:3cc1 $ea $7a $c4
     rst  waitForVBlank                                 ;; 00:3cc4 $d7
@@ -10306,10 +10306,10 @@ jp_00_3cb4:
 jp_00_3d98:
     ld   A, $27                                        ;; 00:3d98 $3e $27
     ldh  [hSFX], A                                     ;; 00:3d9a $e0 $b2
-    ldh  A, [hFFC2]                                    ;; 00:3d9c $f0 $c2
+    ldh  A, [hSCX]                                     ;; 00:3d9c $f0 $c2
     ldh  [rSCX], A                                     ;; 00:3d9e $e0 $43
     ld   [wC473], A                                    ;; 00:3da0 $ea $73 $c4
-    ldh  A, [hFFC1]                                    ;; 00:3da3 $f0 $c1
+    ldh  A, [hSCY]                                     ;; 00:3da3 $f0 $c1
     ldh  [rSCY], A                                     ;; 00:3da5 $e0 $42
     ld   [wC474], A                                    ;; 00:3da7 $ea $74 $c4
     ld   HL, $3e07                                     ;; 00:3daa $21 $07 $3e

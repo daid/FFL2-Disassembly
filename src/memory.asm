@@ -704,7 +704,8 @@ wC7DD:
 wC7DE:
     ds 1                                               ;; c7de
 
-wC7DF:
+; High byte of the current active shadow OAM memory
+wShadowMemoryHigh:
     ds 1                                               ;; c7df
 
 wC7E0:
@@ -1409,10 +1410,10 @@ hSoundEffectLoopCounterChannel4:
 hFFC0:
     ds 1                                               ;; ffc0
 
-hFFC1:
+hSCY:
     ds 1                                               ;; ffc1
 
-hFFC2:
+hSCX:
     ds 1                                               ;; ffc2
 
 hFFC3:
